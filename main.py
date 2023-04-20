@@ -8,14 +8,19 @@ import random
 import undetected_chromedriver as uc
 import time
 
-options = webdriver.ChromeOptions()
+driver = webdriver.Chrome()
 
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
-driver = uc.Chrome(use_subprocess=True, headless=False)
+# navigate to DuckDuckGo search engine
+driver.get("https://duckduckgo.com")
 
+# find the search bar element and enter the query
+search_bar = driver.find_element(By.NAME, "q")
+search_bar.send_keys("Selenium tutorial")
+search_bar.submit()
 
-
+# wait for the search results to load and print the page title
+WebDriverWait(driver, 10).until(EC.title_contains("Selenium tutorial"))
+print(driver.title)
 timers = [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 ]
